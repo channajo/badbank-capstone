@@ -49,7 +49,7 @@ function CreateAccount(){
       promise.catch((e) => console.log(e.message));
 
       console.log(name, email, password);
-      const url = `/account/create/${name}/${email}/{password}`;
+      const url = `/account/create/${name}/${email}/${password}`;
       (async () => {
         var res = await fetch(url);
         var data = await res.json();

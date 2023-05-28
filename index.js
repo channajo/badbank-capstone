@@ -14,7 +14,7 @@ app.get('/account/create/:name/:email/:password', function (req, res) {
     // else create user
     dal.create(req.params.name, req.params.email, req.params.password)
         .then((user) =>{
-        //console.log(user);
+        console.log(user);
         res.send(user);
     });
 });
@@ -37,17 +37,17 @@ app.get('/account/all', function (req, res) {
     });
 });
 
-// user verification / login
-app.get('/account/login/:email/:password', function (req, res){
-    dal.login(req.params.email, req.params.password)
-    .then((user) => {
-    //console.log(user);
-    res.send(user);
-    });
-});
+// // user verification / login
+// app.get('/account/login/:email/:password', function (req, res){
+//     dal.login(req.params.email, req.params.password)
+//     .then((user) => {
+//     //console.log(user);
+//     res.send(user);
+//     });
+// });
 
 //deposit
-app.get('/account/deposit/:email/:amount', function (req, res){
+app.get('/account/:email/deposit/:amount', function (req, res){
     dal.deposit(req.params.email, req.params.amount)
     .then((user) => {
     console.log(user);
