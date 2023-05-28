@@ -3,7 +3,7 @@
 // import { Home } from "./home";
 
 function Spa() {
-  const [user, setUser] = React.useState( {
+  const [user, setUser] = React.useState({
     name: "abel",
     email: "abel@mit.edu",
     password: "secret",
@@ -20,13 +20,13 @@ function Spa() {
     appId: "1:12632048590:web:524734aa22935832fa619f",
   };
 
-  // // Initialize Firebase
-  // if (!firebase.apps.length) {
-  //   firebase.initializeApp(firebaseConfig);
-  // }
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
-  // //fb handle db
-  // const db = firebase.database();
+  //fb handle db
+  const db = firebase.database();
 
   //changing user data
   const setAll = (name, email, password, balance) => {
@@ -39,17 +39,14 @@ function Spa() {
     });
     console.log("setAll was called");
   };
-  // const user = 
+  // const user =
 
   return (
     <HashRouter>
-      
       <UserContext.Provider
         value={{
-          users: [
-           user,
-          ],
-          user
+          users: [user],
+          user,
         }}
       >
         <NavBar />
@@ -76,4 +73,4 @@ function Spa() {
 // );
 // root.render(<Spa />);
 
-ReactDOM.render(<Spa/>, document.getElementById("root"))
+ReactDOM.render(<Spa />, document.getElementById("root"));
