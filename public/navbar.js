@@ -71,7 +71,7 @@ function NavBar() {
         </NotLoggedIn>
         <LoggedIn>
           <a className="nav-link" data-toggle="tooltip" title="logout" id="logout" href="#/login/" onClick={handleLogout}>
-             "Logout" 
+             Logout
           </a>
           <a className="nav-link" data-toggle="tooltip" title="logout" id="logout" onClick={() => {}}>
             {user?.email}

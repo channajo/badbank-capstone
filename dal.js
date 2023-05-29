@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017";
+const url = process.env.MONGODB_URL;
 let db = null;
 
 //connect to mongodb
@@ -23,26 +23,18 @@ function create(name, email, password) {
   });
 }
 
-function userdata() {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection("users")
-      .findOne({ email: email })
-      .toArray(function (err, docs) {
-        err ? reject(err) : resolve(docs);
-      });
-  });
+async function userdata(email) {
+  const customer = await db.collection("users").findOne({ email: email });
+  return customer;
 }
 
 //all users
 function all() {
-  return new Promise((resolve, reject) => {
-    const customers = db
-      .collection("users")
-      .find({})
-      .toArray(function (err, docs) {
-        err ? reject(err) : resolve(docs);
-      });
+  return new Promise(async (resolve, reject) => {
+    const customers = await db.collection("users").find({}).toArray();
+
+    //return customers if any are found else if nothing is found then return an error
+    return customers ? resolve(customers) : reject(customers);
   });
 }
 
@@ -75,22 +67,31 @@ function deposit(email, amount) {
   });
 }
 
-function withdraw(email, amount) {
-  return new Promise((resolve, reject) => {
-    const user = db
-      .collection("users")
-      .findOne({ email: email })
-      .then((doc) => {
-        db.collection("users")
-          .updateOne({ email: email }, { $set: { balance: Number(doc.balance) - Number(amount) } })
-          .then((res) => {
-            resolve(db.collection("users").findOne({ email: email }));
-          });
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+async function withdraw(email, amount) {
+  //get the user
+  const user = await db.collection("users").findOne({ email: email });
+
+  if (Number(amount) < 0) {
+    throw Error("Error: amount must be a positive number");
+  }
+  if (!user) {
+    throw Error("Error: no user found");
+  }
+
+  let { balance } = user;
+
+  if (Number(amount) > balance) {
+    throw Error("Error: amount cannot exceed the existing balance");
+  }
+
+  //calculate the new balance
+  balance = Number(balance) - Number(amount);
+
+  //update the balance
+  await db.collection("users").updateOne({ email: email }, { $set: { balance } });
+
+  //return the user with the new balance
+  return { ...user, balance };
 }
 
 module.exports = { create, all, login, deposit, withdraw, userdata };

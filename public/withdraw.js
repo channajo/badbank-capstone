@@ -15,7 +15,7 @@ function Withdraw() {
       setUpdate(true);
       setShow(false);
 
-      fetch(`/account/update/${user.email}/${-balance}`)
+      fetch(`/account/withdraw/${user.email}/${balance}`)
         .then((response) => response.text())
         .then((text) => {
           try {

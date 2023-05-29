@@ -1,3 +1,5 @@
+
+require('dotenv').config();//needed to load environment variables
 var express = require('express');
 var app     = express();
 var cors    = require('cors');
@@ -20,8 +22,8 @@ app.get('/account/create/:name/:email/:password', function (req, res) {
 });
 
 // gets user data
-app.get('/account/userdata/:email/:password', function (req, res) {
-    dal.userdata().
+app.get('/account/userdata/:email', function (req, res) {
+    dal.userdata(req.params.email).
         then((docs) => {
         console.log(docs);
         res.send(docs);
@@ -30,11 +32,12 @@ app.get('/account/userdata/:email/:password', function (req, res) {
 
 // all accounts
 app.get('/account/all', function (req, res) {
+    console.log('account/all fired')
     dal.all().
         then((docs) => {
-        //console.log(docs);
+        console.log('account/all complete');
         res.send(docs);
-    });
+    }).catch(console.error);
 });
 
 // // user verification / login

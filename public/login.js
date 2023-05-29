@@ -1,10 +1,11 @@
 function Login() {
+  const { contextDispatch } = useAppContext();
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const user = React.useContext(UserContext);
-  const history = ReactRouterDOM.useHistory()
+  const history = ReactRouterDOM.useHistory();
 
   //get elements
   const navWithdraw = document.getElementById("navWithdraw");
@@ -43,8 +44,9 @@ function Login() {
       console.log("User Login Response: ", resp);
       updateCurrentUser(resp.user.email);
       //go to index/home page
-      
-      history.push('/')
+      //save the password to the context
+      contextDispatch({ action_type: "SET_PASSWORD", payload: password });
+      history.push("/");
     });
 
     promise.catch((e) => console.log(e.message));

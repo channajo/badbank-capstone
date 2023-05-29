@@ -12,6 +12,14 @@ const appReducer = (state, { action_type, payload }) => {
       result = { ...state, user };
       break;
     }
+    case "SET_PASSWORD": {
+      result = { ...state, password: payload };
+      break;
+    }
+    case "CLEAR_PASSWORD": {
+      result = { ...state, password: undefined };
+      break;
+    }
     default:
       console.log("no state change");
   }
@@ -28,6 +36,7 @@ const defaultUser = {
 function AppContext({ children }) {
   const [store, contextDispatch] = React.useReducer(appReducer, {
     user: undefined,
+    password: undefined,
   });
   const useEffect = React.useEffect;
 
@@ -46,15 +55,23 @@ function AppContext({ children }) {
   function watchFirebaseAuthUser() {
     const firebaseAuth = firebase.auth();
 
-    return firebaseAuth.onAuthStateChanged((user) => {
+    return firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
         console.log("User logged in:", user);
         const plainUser = user;
+
+        const balance = await fetch(`/account/userdata/${user.email}`)
+          .then((res) => res.json())
+          .then((data) => {
+            return data.balance;
+          })
+          .catch(() => 0);
         //write the user to context
-        contextDispatch({ action_type: "SET_USER", payload: { balance: 0, ...plainUser } });
+        contextDispatch({ action_type: "SET_USER", payload: { balance, ...plainUser } });
       } else {
         console.log("User logged out");
         contextDispatch({ action_type: "SET_USER", payload: null });
+        contextDispatch({ action_type: "CLEAR_PASSWORD" });
       }
     });
   }
