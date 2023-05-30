@@ -1,5 +1,6 @@
 {
   "name": "new-bad-bank",
+  "homepage": "https://channa.herokuapp.com",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
