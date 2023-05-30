@@ -8,4 +8,4 @@ badbank capstone with MITxPRO
 3. add a user and password in database access and input the username and password into the connection string
 
 # preview project
-[link](channa.herokuapp.com)
+[link](https://channa.herokuapp.com)
