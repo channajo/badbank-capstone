@@ -1,5 +1,10 @@
 # badbank-capstone
 badbank capstone with MITxPRO
+This project is part of a class taken from online. This bad bank was built to show how a starter code can be changed 
+again and again. There's alwasy something or some updates that will be needed to keep the bad bank open. 
+
+<h4> below is a picture of what is expected when opening bad bank website link below. </h4>
+![apphomepg](https://github.com/channajo/badbank-capstone/assets/96075628/5a954666-d815-460f-adeb-216ea8bccf31)
 
 
 # how to connect to mongdb atlas
@@ -8,4 +13,5 @@ badbank capstone with MITxPRO
 3. add a user and password in database access and input the username and password into the connection string
 
 # preview project
+click on the link to check out this bad bank. This link was created by Heroku.
 [link](https://channa.herokuapp.com)
