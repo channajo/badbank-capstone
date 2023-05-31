@@ -6,6 +6,10 @@ again and again. There's alwasy something or some updates that will be needed to
 <h4> below is a picture of what is expected when opening bad bank website link below. </h4>
 ![apphomepg](https://github.com/channajo/badbank-capstone/assets/96075628/5a954666-d815-460f-adeb-216ea8bccf31)
 
+<h4>What to expect from a badbank</h4>
+On this website you will be able to create and account, make deposits, make a withdraw, check your balance. Your balance info
+will be there even when you logout and log back in. Give this bad bank a try!
+
 
 # how to connect to mongdb atlas
 1. get the connection url
